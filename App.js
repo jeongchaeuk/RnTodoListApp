@@ -6,19 +6,28 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import React, {useState} from 'react';
+import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
 
 import TodoInsert from './components/TodoInsert';
+import TodoList from './components/TodoList';
 
 const App = () => {
+  const [todos, setTodos] = useState([]);
+
+  const insertTodo = (text) => {
+    setTodos([
+      ...todos,
+      {id: Math.random().toString(), textValue: text, checked: false},
+    ]);
+  };
+
+  // const deleteTodo = (id) = {
+  //   nextTodos = todos.filter(item=>item.id !== id);
+  //   setTodos(nextTodos);
+
+  // };
+
   return (
     <>
       <StatusBar style={styles.statusBar} />
@@ -26,7 +35,7 @@ const App = () => {
         <Text style={styles.appTitle}>할 일 목록</Text>
         <View style={styles.card}>
           <TodoInsert />
-          <ScrollView></ScrollView>
+          <TodoList />
         </View>
       </SafeAreaView>
     </>
