@@ -3,15 +3,15 @@ import {TouchableOpacity} from 'react-native';
 import {StyleSheet, View, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const TodoItem = () => {
+const TodoItem = ({item}) => {
   return (
     <View style={styles.itemContainer}>
       <TouchableOpacity>
-        <View style={styles.circle}>
+        <View style={styles.buttonContainer}>
           <Icon name="circledowno" size={30} color="blue" />
         </View>
       </TouchableOpacity>
-      <Text style={styles.itemText}>Todo Item</Text>
+      <Text style={styles.itemText}>{item.textValue}</Text>
       <TouchableOpacity style={styles.buttonContainer}>
         <Text style={styles.buttonText}>
           <Icon name="delete" size={30} color="#e33057" />
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     color: '#29323c',
   },
 
-  circle: {
+  buttonContainer: {
     margin: 10,
   },
 });

@@ -13,7 +13,21 @@ import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
 
 const App = () => {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState([
+    {id: 1, textValue: 'aaa', checked: false},
+    {id: 2, textValue: 'bbb', checked: true},
+    {id: 3, textValue: 'ccc', checked: false},
+    {id: 4, textValue: 'ddd', checked: false},
+    {id: 5, textValue: 'aaa', checked: false},
+    {id: 6, textValue: 'bbb', checked: true},
+    {id: 7, textValue: 'ccc', checked: false},
+    {id: 8, textValue: 'ddd', checked: false},
+    {id: 4, textValue: 'ddd', checked: false},
+    {id: 5, textValue: 'aaa', checked: false},
+    {id: 6, textValue: 'bbb', checked: true},
+    {id: 7, textValue: 'ccc', checked: false},
+    {id: 8, textValue: 'ddd', checked: false},
+  ]);
 
   const insertTodo = (text) => {
     setTodos([
@@ -22,11 +36,9 @@ const App = () => {
     ]);
   };
 
-  // const deleteTodo = (id) = {
-  //   nextTodos = todos.filter(item=>item.id !== id);
-  //   setTodos(nextTodos);
-
-  // };
+  const deleteTodo = (id) => {
+    setTodos(todos.filter((item) => item.id !== id));
+  };
 
   return (
     <>
@@ -35,7 +47,7 @@ const App = () => {
         <Text style={styles.appTitle}>할 일 목록</Text>
         <View style={styles.card}>
           <TodoInsert />
-          <TodoList />
+          <TodoList todos={todos} />
         </View>
       </SafeAreaView>
     </>
