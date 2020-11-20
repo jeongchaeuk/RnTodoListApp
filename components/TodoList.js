@@ -7,7 +7,7 @@ const TodoList = ({todos}) => {
   return (
     <ScrollView contentContainerStyle={styles.listContainer}>
       {todos.map((item) => (
-        <TodoItem item={item} />
+        <TodoItem key={item.id} item={item} />
       ))}
     </ScrollView>
   );
