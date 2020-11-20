@@ -1,28 +1,28 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
-import ADIcon from 'react-native-vector-icons/Feather';
+import FIcon from 'react-native-vector-icons/Feather';
 
 const TodoItem = ({item, onDeleteTodo, onToggleTodo}) => {
   console.log('TodoItem');
+  const fontSize = 24;
   return (
     <View style={styles.itemContainer}>
       <TouchableOpacity onPress={() => onToggleTodo(item.id)}>
         <View style={styles.buttonContainer}>
-          {item.checked ? (
-            <ADIcon name="check-square" size={30} color="green" />
-          ) : (
-            <ADIcon name="square" size={30} color="green" />
-          )}
+          <FIcon
+            name={item.checked ? 'check-square' : 'square'}
+            size={fontSize}
+            color="green"
+          />
         </View>
       </TouchableOpacity>
-      {item.checked ? (
-        <Text style={styles.strikeText} children={item.textValue} />
-      ) : (
-        <Text style={styles.itemText} children={item.textValue} />
-      )}
+      <Text
+        style={item.checked ? styles.strikeText : styles.itemText}
+        children={item.textValue}
+      />
       <TouchableOpacity onPress={() => onDeleteTodo(item.id)}>
         <View style={styles.buttonContainer}>
-          <ADIcon name="minus-square" size={30} color="red" />
+          <FIcon name="minus-square" size={fontSize} color="red" />
         </View>
       </TouchableOpacity>
     </View>
@@ -43,8 +43,7 @@ const styles = StyleSheet.create({
 
   itemText: {
     flex: 1,
-    // fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 24,
     marginVertical: 5,
     width: 100,
     color: 'black',
@@ -56,8 +55,7 @@ const styles = StyleSheet.create({
 
   strikeText: {
     flex: 1,
-    // fontWeight: 'normal',
-    fontSize: 20,
+    fontSize: 24,
     marginVertical: 5,
     width: 100,
     color: '#bbb',
@@ -65,6 +63,6 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    margin: 5,
+    marginHorizontal: 5,
   },
 });

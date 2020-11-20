@@ -4,7 +4,7 @@ import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
 
-import ADIcon from 'react-native-vector-icons/Feather';
+import FIcon from 'react-native-vector-icons/Feather';
 
 function makeTodo(id, textValue, checked) {
   return {id: id, textValue: textValue, checked: checked};
@@ -41,7 +41,7 @@ const App = () => {
       <StatusBar style={styles.statusBar} />
       <SafeAreaView style={styles.container}>
         <Text style={styles.appTitle}>
-          <ADIcon name="book-open" size={30} color="white" /> 할 일 목록
+          <FIcon name="list" size={30} color="white" /> 할 일 목록
         </Text>
         <View style={styles.card}>
           <TodoInsert onInsertTodo={insertTodo} />
