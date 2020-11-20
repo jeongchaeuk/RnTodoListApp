@@ -22,11 +22,11 @@ const App = () => {
     {id: 6, textValue: 'bbb', checked: true},
     {id: 7, textValue: 'ccc', checked: false},
     {id: 8, textValue: 'ddd', checked: false},
-    {id: 4, textValue: 'ddd', checked: false},
-    {id: 5, textValue: 'aaa', checked: false},
-    {id: 6, textValue: 'bbb', checked: true},
-    {id: 7, textValue: 'ccc', checked: false},
-    {id: 8, textValue: 'ddd', checked: false},
+    {id: 9, textValue: 'ddd', checked: false},
+    {id: 10, textValue: 'aaa', checked: false},
+    {id: 11, textValue: 'bbb', checked: true},
+    {id: 12, textValue: 'ccc', checked: false},
+    {id: 13, textValue: 'ddd', checked: false},
   ]);
 
   const insertTodo = (text) => {
