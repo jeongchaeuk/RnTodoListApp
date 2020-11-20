@@ -2,22 +2,23 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {StyleSheet, View, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const TodoItem = ({item}) => {
   return (
     <View style={styles.itemContainer}>
       <TouchableOpacity>
         <View style={styles.buttonContainer}>
-          <Icon name="circledowno" size={30} color="blue" />
+          <Icon name="checksquare" size={30} color="green" />
         </View>
       </TouchableOpacity>
       <Text style={styles.itemText}>
         [{item.id}] {item.textValue}
       </Text>
       <TouchableOpacity style={styles.buttonContainer}>
-        <Text style={styles.buttonText}>
-          <Icon name="delete" size={30} color="#e33057" />
-        </Text>
+        <View style={styles.buttonContainer}>
+          <MCIcon name="delete" size={30} color="red" />
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -35,16 +36,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
 
-  strikeText: {
-    color: '#bbb',
-    textDecorationLine: 'line-through',
-  },
-
   itemText: {
     flex: 5,
     fontWeight: 'bold',
-    fontSize: 18,
-    marginVertical: 20,
+    fontSize: 20,
+    marginVertical: 5,
     width: 100,
   },
 
@@ -52,7 +48,12 @@ const styles = StyleSheet.create({
     color: '#29323c',
   },
 
+  strikeText: {
+    color: '#bbb',
+    textDecorationLine: 'line-through',
+  },
+
   buttonContainer: {
-    margin: 10,
+    margin: 5,
   },
 });

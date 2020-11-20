@@ -1,38 +1,22 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, {useState} from 'react';
 import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
 
 import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
 
+import Icon from 'react-native-vector-icons/AntDesign';
+
+function makeTodo(id, textValue = '', checked = false) {
+  return {id: id, textValue: textValue, checked: checked};
+}
+
 const App = () => {
-  const [todos, setTodos] = useState([
-    {id: 1, textValue: 'aaa', checked: false},
-    {id: 2, textValue: 'bbb', checked: true},
-    {id: 3, textValue: 'ccc', checked: false},
-    {id: 4, textValue: 'ddd', checked: false},
-    {id: 5, textValue: 'aaa', checked: false},
-    {id: 6, textValue: 'bbb', checked: true},
-    {id: 7, textValue: 'ccc', checked: false},
-    {id: 8, textValue: 'ddd', checked: false},
-    {id: 9, textValue: 'ddd', checked: false},
-    {id: 10, textValue: 'aaa', checked: false},
-    {id: 11, textValue: 'bbb', checked: true},
-    {id: 12, textValue: 'ccc', checked: false},
-    {id: 13, textValue: 'ddd', checked: false},
-  ]);
+  const [todos, setTodos] = useState([]);
 
   const insertTodo = (text) => {
     setTodos([
       ...todos,
-      {id: Math.random().toString(), textValue: text, checked: false},
+      {id: todos.length + 1, textValue: text, checked: false},
     ]);
   };
 
@@ -44,9 +28,11 @@ const App = () => {
     <>
       <StatusBar style={styles.statusBar} />
       <SafeAreaView style={styles.container}>
-        <Text style={styles.appTitle}>할 일 목록</Text>
+        <Text style={styles.appTitle}>
+          <Icon name="bars" size={30} color="white" /> 할 일 목록
+        </Text>
         <View style={styles.card}>
-          <TodoInsert />
+          <TodoInsert onInsertTodo={insertTodo} />
           <TodoList todos={todos} />
         </View>
       </SafeAreaView>
@@ -86,7 +72,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: '#44f',
+    backgroundColor: '#23527C',
     // alignItems: 'center',
     // justifyContent: 'center',
   },

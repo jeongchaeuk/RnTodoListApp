@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import {StyleSheet, TextInput, View} from 'react-native';
+import {Button} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const TodoInsert = () => {
+const TodoInsert = ({onInsertTodo}) => {
   const [todo, setTodo] = useState('');
-  const handleInputTodo = () => {};
 
   return (
     <View style={styles.inputContainer}>
@@ -11,12 +12,15 @@ const TodoInsert = () => {
         style={styles.input}
         placeholder="할 일을 입력하세요."
         onChangeText={(text) => setTodo(text)}
+        value={todo}
       />
       <Button
         style={styles.submitButton}
-        title="등록"
+        icon={<Icon name="add" size={20} color="white" />}
+        title=""
         onPress={() => {
-          alert(todo);
+          onInsertTodo(todo);
+          setTodo('');
         }}
       />
     </View>
