@@ -11,7 +11,9 @@ const TodoItem = ({item}) => {
           <Icon name="circledowno" size={30} color="blue" />
         </View>
       </TouchableOpacity>
-      <Text style={styles.itemText}>{item.textValue}</Text>
+      <Text style={styles.itemText}>
+        [{item.id}] {item.textValue}
+      </Text>
       <TouchableOpacity style={styles.buttonContainer}>
         <Text style={styles.buttonText}>
           <Icon name="delete" size={30} color="#e33057" />
