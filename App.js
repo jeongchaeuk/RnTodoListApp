@@ -21,7 +21,7 @@ const App = () => {
   };
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter((item) => item.id !== id));
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
@@ -33,7 +33,7 @@ const App = () => {
         </Text>
         <View style={styles.card}>
           <TodoInsert onInsertTodo={insertTodo} />
-          <TodoList todos={todos} />
+          <TodoList todos={todos} onDeleteTodo={deleteTodo} />
         </View>
       </SafeAreaView>
     </>

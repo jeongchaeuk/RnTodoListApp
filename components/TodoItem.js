@@ -1,21 +1,20 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
-import {StyleSheet, View, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
+import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
+import ADIcon from 'react-native-vector-icons/AntDesign';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const TodoItem = ({item}) => {
+const TodoItem = ({item, onDeleteTodo}) => {
   return (
     <View style={styles.itemContainer}>
       <TouchableOpacity>
         <View style={styles.buttonContainer}>
-          <Icon name="checksquare" size={30} color="green" />
+          <ADIcon name="checksquare" size={30} color="green" />
         </View>
       </TouchableOpacity>
-      <Text style={styles.itemText}>
-        [{item.id}] {item.textValue}
-      </Text>
-      <TouchableOpacity style={styles.buttonContainer}>
+      <Text style={styles.itemText} children={item.textValue} />
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={() => onDeleteTodo(item.id)}>
         <View style={styles.buttonContainer}>
           <MCIcon name="delete" size={30} color="red" />
         </View>
@@ -37,11 +36,12 @@ const styles = StyleSheet.create({
   },
 
   itemText: {
-    flex: 5,
+    flex: 1,
     fontWeight: 'bold',
     fontSize: 20,
     marginVertical: 5,
     width: 100,
+    color: 'black',
   },
 
   unstrikeText: {
@@ -49,6 +49,11 @@ const styles = StyleSheet.create({
   },
 
   strikeText: {
+    flex: 1,
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginVertical: 5,
+    width: 100,
     color: '#bbb',
     textDecorationLine: 'line-through',
   },

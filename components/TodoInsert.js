@@ -19,6 +19,10 @@ const TodoInsert = ({onInsertTodo}) => {
         icon={<Icon name="add" size={20} color="white" />}
         title=""
         onPress={() => {
+          if (todo === '') {
+            alert('할 일을 먼저 입력하세요.');
+            return;
+          }
           onInsertTodo(todo);
           setTodo('');
         }}

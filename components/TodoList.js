@@ -3,11 +3,11 @@ import {ScrollView} from 'react-native';
 import {StyleSheet} from 'react-native';
 import TodoItem from './TodoItem';
 
-const TodoList = ({todos}) => {
+const TodoList = ({todos, onDeleteTodo}) => {
   return (
     <ScrollView contentContainerStyle={styles.listContainer}>
       {todos.map((todo) => (
-        <TodoItem key={todo.id} item={todo} />
+        <TodoItem key={todo.id} item={todo} onDeleteTodo={onDeleteTodo} />
       ))}
     </ScrollView>
   );
