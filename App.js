@@ -4,14 +4,18 @@ import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
 
-import Icon from 'react-native-vector-icons/AntDesign';
+import ADIcon from 'react-native-vector-icons/Feather';
 
-function makeTodo(id, textValue = '', checked = false) {
+function makeTodo(id, textValue, checked) {
   return {id: id, textValue: textValue, checked: checked};
 }
 
 const App = () => {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState([
+    makeTodo(1, 'aaa', true),
+    makeTodo(2, 'bbb', false),
+    makeTodo(3, 'ccc', true),
+  ]);
 
   const insertTodo = (text) => {
     setTodos([
@@ -24,16 +28,28 @@ const App = () => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
+  const toggleTodo = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? {...todo, checked: !todo.checked} : todo,
+      ),
+    );
+  };
+
   return (
     <>
       <StatusBar style={styles.statusBar} />
       <SafeAreaView style={styles.container}>
         <Text style={styles.appTitle}>
-          <Icon name="bars" size={30} color="white" /> 할 일 목록
+          <ADIcon name="book-open" size={30} color="white" /> 할 일 목록
         </Text>
         <View style={styles.card}>
           <TodoInsert onInsertTodo={insertTodo} />
-          <TodoList todos={todos} onDeleteTodo={deleteTodo} />
+          <TodoList
+            todos={todos}
+            onDeleteTodo={deleteTodo}
+            onToggleTodo={toggleTodo}
+          />
         </View>
       </SafeAreaView>
     </>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import {Button} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import ADIcon from 'react-native-vector-icons/Feather';
 
 const TodoInsert = ({onInsertTodo}) => {
   const [todo, setTodo] = useState('');
@@ -16,13 +16,9 @@ const TodoInsert = ({onInsertTodo}) => {
       />
       <Button
         style={styles.submitButton}
-        icon={<Icon name="add" size={20} color="white" />}
-        title=""
+        icon={<ADIcon name="plus" size={20} color="white" />}
+        disabled={todo === ''}
         onPress={() => {
-          if (todo === '') {
-            alert('할 일을 먼저 입력하세요.');
-            return;
-          }
           onInsertTodo(todo);
           setTodo('');
         }}

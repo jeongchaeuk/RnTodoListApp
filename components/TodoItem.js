@@ -1,22 +1,28 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
-import ADIcon from 'react-native-vector-icons/AntDesign';
-import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ADIcon from 'react-native-vector-icons/Feather';
 
-const TodoItem = ({item, onDeleteTodo}) => {
+const TodoItem = ({item, onDeleteTodo, onToggleTodo}) => {
+  console.log('TodoItem');
   return (
     <View style={styles.itemContainer}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => onToggleTodo(item.id)}>
         <View style={styles.buttonContainer}>
-          <ADIcon name="checksquare" size={30} color="green" />
+          {item.checked ? (
+            <ADIcon name="check-square" size={30} color="green" />
+          ) : (
+            <ADIcon name="square" size={30} color="green" />
+          )}
         </View>
       </TouchableOpacity>
-      <Text style={styles.itemText} children={item.textValue} />
-      <TouchableOpacity
-        style={styles.buttonContainer}
-        onPress={() => onDeleteTodo(item.id)}>
+      {item.checked ? (
+        <Text style={styles.strikeText} children={item.textValue} />
+      ) : (
+        <Text style={styles.itemText} children={item.textValue} />
+      )}
+      <TouchableOpacity onPress={() => onDeleteTodo(item.id)}>
         <View style={styles.buttonContainer}>
-          <MCIcon name="delete" size={30} color="red" />
+          <ADIcon name="minus-square" size={30} color="red" />
         </View>
       </TouchableOpacity>
     </View>
@@ -37,7 +43,7 @@ const styles = StyleSheet.create({
 
   itemText: {
     flex: 1,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     fontSize: 20,
     marginVertical: 5,
     width: 100,
@@ -50,7 +56,7 @@ const styles = StyleSheet.create({
 
   strikeText: {
     flex: 1,
-    fontWeight: 'bold',
+    // fontWeight: 'normal',
     fontSize: 20,
     marginVertical: 5,
     width: 100,
