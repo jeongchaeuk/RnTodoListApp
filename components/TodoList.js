@@ -1,14 +1,14 @@
 import React from 'react';
-import {ScrollView} from 'react-native';
-import {StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import TodoItem from './TodoItem';
 
 const TodoList = ({todos, onDeleteTodo, onToggleTodo}) => {
+  console.log('render TodoList:', {todos});
   return (
     <ScrollView contentContainerStyle={styles.listContainer}>
       {todos.map((todo) => (
         <TodoItem
-          key={todo.id}
+          key={todo.idx}
           item={todo}
           onDeleteTodo={onDeleteTodo}
           onToggleTodo={onToggleTodo}

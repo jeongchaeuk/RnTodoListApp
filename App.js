@@ -1,58 +1,127 @@
-import React, {useState} from 'react';
-import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 
 import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
 
 import FIcon from 'react-native-vector-icons/Feather';
 
-function makeTodo(id, textValue, checked) {
-  return {id: id, textValue: textValue, checked: checked};
-}
+import {openDatabase, enablePromise} from 'react-native-sqlite-storage';
+
+var db = openDatabase({name: 'todo.db'});
 
 const App = () => {
-  const [todos, setTodos] = useState([
-    makeTodo(1, 'aaa', true),
-    makeTodo(2, 'bbb', false),
-    makeTodo(3, 'ccc', true),
-  ]);
+  const [todos, setTodos] = useState([]);
 
-  const insertTodo = (text) => {
-    setTodos([
-      ...todos,
-      {id: todos.length + 1, textValue: text, checked: false},
-    ]);
+  useEffect(() => {
+    enablePromise(true);
+    console.log('App: start useEffect');
+    db.transaction((txn) => {
+      txn.executeSql(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='table_todo'",
+        [],
+        (tx, res) => {
+          console.log('table:', res.rows.length);
+          if (res.rows.length === 0) {
+            txn.executeSql('DROP TABLE IF EXISTS table_todo', []);
+            txn.executeSql(
+              'CREATE TABLE IF NOT EXISTS table_todo(idx INTEGER PRIMARY KEY AUTOINCREMENT, todo VARCHAR(100), created_at VARCHAR(25), done_at VARCHAR(25))',
+              [],
+            );
+          } else {
+            selectTodos();
+          }
+        },
+      );
+    });
+  }, []);
+
+  const selectTodos = () => {
+    console.log('App: start selectTodos');
+    db.transaction((txn) => {
+      txn.executeSql('SELECT * FROM table_todo', [], (txn, res) => {
+        console.log('selects : ', res.rows.length);
+        let temp = [];
+        for (let i = 0; i < res.rows.length; ++i) {
+          temp.push(res.rows.item(i));
+        }
+        setTodos(temp);
+      });
+    });
   };
 
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const insertTodo = (todo) => {
+    console.log('App: start insertTodo');
+    db.transaction((txn) => {
+      txn.executeSql(
+        `INSERT INTO table_todo (todo, created_at) VALUES (?, datetime('now'))`,
+        [todo],
+        (tx, res) => {},
+      );
+    });
+    selectTodos();
   };
 
-  const toggleTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? {...todo, checked: !todo.checked} : todo,
-      ),
+  const deleteFromDB = (idx) => {
+    console.log('App: start deleteFromDB');
+    db.transaction((txn) => {
+      txn.executeSql(`DELETE FROM table_todo WHERE idx=${idx}`, []);
+    });
+
+    selectTodos();
+  };
+
+  const deleteTodo = (idx) => {
+    console.log('App: start deleteTodo');
+    Alert.alert(
+      '삭제',
+      '정말 삭제하시겠습니까?',
+      [
+        {
+          text: '아니오',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        {text: '네', onPress: () => deleteFromDB(idx)},
+      ],
+      {cancelable: false},
     );
   };
 
+  const toggleTodo = (idx) => {
+    console.log('App: start toggleTodo');
+    db.transaction((txn) => {
+      txn.executeSql(
+        `UPDATE table_todo 
+            SET done_at = 
+            (
+                CASE
+                      WHEN done_at NOT NULL THEN NULL
+                      ELSE datetime('now')
+                END
+            )   WHERE idx = ${idx}`,
+        [],
+        (tx, res) => {},
+      );
+    });
+    selectTodos();
+  };
+
+  console.log('App: start toggleTodo');
   return (
-    <>
-      <StatusBar style={styles.statusBar} />
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.appTitle}>
-          <FIcon name="list" size={30} color="white" /> 할 일 목록
-        </Text>
-        <View style={styles.card}>
-          <TodoInsert onInsertTodo={insertTodo} />
-          <TodoList
-            todos={todos}
-            onDeleteTodo={deleteTodo}
-            onToggleTodo={toggleTodo}
-          />
-        </View>
-      </SafeAreaView>
-    </>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.appTitle}>
+        <FIcon name="list" size={30} color="white" /> 할 일 목록
+      </Text>
+      <View style={styles.card}>
+        <TodoInsert onInsertTodo={insertTodo} />
+        <TodoList
+          todos={todos}
+          onDeleteTodo={deleteTodo}
+          onToggleTodo={toggleTodo}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 

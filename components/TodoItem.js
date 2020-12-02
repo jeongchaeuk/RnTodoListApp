@@ -3,24 +3,24 @@ import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
 import FIcon from 'react-native-vector-icons/Feather';
 
 const TodoItem = ({item, onDeleteTodo, onToggleTodo}) => {
-  console.log('TodoItem');
+  console.log('render TodoItem:', item);
   const fontSize = 24;
   return (
     <View style={styles.itemContainer}>
-      <TouchableOpacity onPress={() => onToggleTodo(item.id)}>
+      <TouchableOpacity onPress={() => onToggleTodo(item.idx)}>
         <View style={styles.buttonContainer}>
           <FIcon
-            name={item.checked ? 'check-square' : 'square'}
+            name={item.done_at !== null ? 'check-square' : 'square'}
             size={fontSize}
             color="green"
           />
         </View>
       </TouchableOpacity>
       <Text
-        style={item.checked ? styles.strikeText : styles.itemText}
-        children={item.textValue}
+        style={item.done_at !== null ? styles.strikeText : styles.itemText}
+        children={item.todo}
       />
-      <TouchableOpacity onPress={() => onDeleteTodo(item.id)}>
+      <TouchableOpacity onPress={() => onDeleteTodo(item.idx)}>
         <View style={styles.buttonContainer}>
           <FIcon name="minus-square" size={fontSize} color="red" />
         </View>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 
   itemText: {
     flex: 1,
-    fontSize: 24,
+    fontSize: 20,
     marginVertical: 5,
     width: 100,
     color: 'black',
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 
   strikeText: {
     flex: 1,
-    fontSize: 24,
+    fontSize: 20,
     marginVertical: 5,
     width: 100,
     color: '#bbb',

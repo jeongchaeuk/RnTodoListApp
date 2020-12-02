@@ -6,34 +6,27 @@ import FIcon from 'react-native-vector-icons/Feather';
 const TodoInsert = ({onInsertTodo}) => {
   const [todo, setTodo] = useState('');
 
-  // const handleKeyPress = (e) => {
-  //   if (e.nativeEvent.key === 'Enter') {
-  //     let txt = todo.replace('\n', 'x');
-  //     setTodo(txt);
-  //     // onInsertTodo(todo);
-  //     // setTodo('');
-  //   }
-  // };
+  const insertTodo = () => {
+    onInsertTodo(todo);
+    setTodo('');
+  };
 
   return (
     <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
         placeholder="할 일을 입력하세요."
+        placeholderTextColor="#aaa"
         onChangeText={(text) => setTodo(text)}
-        // onKeyPress={handleKeyPress}
         value={todo}
-        autoCorrect={false}
+        multiline={true}
       />
       <Button
         style={styles.submitButton}
-        icon={<FIcon name="plus" size={20} color="white" />}
+        icon={<FIcon name="plus" size={30} color="#fff" />}
         disabled={todo === ''}
-        disabledStyle={styles.disableButton}
-        onPress={() => {
-          onInsertTodo(todo);
-          setTodo('');
-        }}
+        disabledStyle={styles.disabledButton}
+        onPress={insertTodo}
       />
     </View>
   );
@@ -48,12 +41,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
 
-  disableButton: {
-    backgroundColor: 'lightgray',
+  disabledButton: {
+    backgroundColor: '#aaa',
   },
 
   submitButton: {
-    width: '25%',
+    width: '50%',
   },
 
   input: {
@@ -63,5 +56,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#999',
     borderBottomWidth: 1,
     fontSize: 20,
+    color: 'black',
   },
 });
