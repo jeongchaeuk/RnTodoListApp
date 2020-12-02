@@ -56,7 +56,6 @@ const App = () => {
       txn.executeSql(
         "INSERT INTO table_todo (todo, created_at) VALUES (?, datetime('now'))",
         [todo],
-        (tx, res) => {},
       );
     });
     selectTodos();
@@ -101,7 +100,6 @@ const App = () => {
                 END
             )   WHERE idx = ${idx}`,
         [],
-        (tx, res) => {},
       );
     });
     selectTodos();
