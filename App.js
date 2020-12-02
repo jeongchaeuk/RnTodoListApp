@@ -39,7 +39,7 @@ const App = () => {
   const selectTodos = () => {
     console.log('App: start selectTodos');
     db.transaction((txn) => {
-      txn.executeSql('SELECT * FROM table_todo', [], (txn, res) => {
+      txn.executeSql('SELECT * FROM table_todo', [], (tx, res) => {
         console.log('selects : ', res.rows.length);
         let temp = [];
         for (let i = 0; i < res.rows.length; ++i) {
@@ -54,7 +54,7 @@ const App = () => {
     console.log('App: start insertTodo');
     db.transaction((txn) => {
       txn.executeSql(
-        `INSERT INTO table_todo (todo, created_at) VALUES (?, datetime('now'))`,
+        "INSERT INTO table_todo (todo, created_at) VALUES (?, datetime('now'))",
         [todo],
         (tx, res) => {},
       );
