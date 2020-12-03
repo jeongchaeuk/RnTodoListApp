@@ -10,3 +10,12 @@ todolists tutorial
 https://docs.google.com/document/d/1Ia4FHHZlimFHOAViATtBV8rcai9S7KEnUdt3BJoFSdU/edit?usp=sharing
 
 https://oblador.github.io/react-native-vector-icons/
+
+navigation tutorial
+https://docs.google.com/document/d/1SCGiyI6n8JwdFIUmcprSyR7LFvoZDuXsi6avhyFk5GI/edit?usp=sharing
+
+상태관리
+https://docs.google.com/document/d/1I3ClrsyZJ-BljFxotIWkJ2oZOboJcpavLX0H-rW5XKU/edit?usp=sharing
+
+SQLite DB 연동
+https://docs.google.com/document/d/17mzTu9cbqnzCrGvqBSsRELHiCgjSNtU_2_lFgTp4knQ/edit?usp=sharing
